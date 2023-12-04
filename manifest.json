@@ -28,5 +28,12 @@
         "mac": "Command+B"
       }
     }
-  }
+  }, 
+  "content_scripts": [
+    {
+      "matches": ["https://dev.to/opensauced/job-seekers-worksheet-build-your-resume-with-open-source-5am5"],
+      "css": ["style.css"],
+      "js": ["content-script.js"]
+    }
+  ]
 }

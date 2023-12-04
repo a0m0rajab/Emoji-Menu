@@ -35,10 +35,13 @@ chrome.action.onClicked.addListener(async (tab) => {
           const unlistedItems = document.createElement('ul');
           unlistedItems.id = 'chrome-extension-unlisted-items';
           unlistedItems.innerHTML = `
-        <li id="chrome-extension-emojis">🎄 Tree </li>
-        <li id="chrome-extension-emojis">❤️ heart </li>
-        <li id="chrome-extension-emojis">✨ stars </li>
-        <li id="chrome-extension-emojis">🎁 box</li>
+          <label for="emoji-search">Search:</label>
+        <input id="emoji-search" class="">
+        <button id="emoji-search-button">Search</button>
+        <li id="chrome-extension-emojis"><emoji>🎄</emoji> Tree </li>
+        <li id="chrome-extension-emojis"><emoji>❤️</emoji> heart </li>
+        <li id="chrome-extension-emojis"><emoji>✨</emoji> stars </li>
+        <li id="chrome-extension-emojis"><emoji>🎁</emoji> box</li>
         `;
           textarea.parentNode.insertBefore(unlistedItems, textarea);
         });
@@ -47,7 +50,7 @@ chrome.action.onClicked.addListener(async (tab) => {
         elements.forEach(element => {
           element.addEventListener("click", event => {
             textarea = event.target.parentElement.parentElement.querySelector("textarea");
-            textarea.value += event.target.innerText;
+            textarea.value += event.target.querySelector("emoji").innerText;
           });
         });
       }

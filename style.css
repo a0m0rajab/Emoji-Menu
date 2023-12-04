@@ -1,11 +1,14 @@
-ul {
-    list-style-type: none;
-    margin: 1px;
-    padding: 1px;
-    overflow: hidden;
-    background-color: rgba(51, 51, 51, 0.486);
+li#chrome-extension-emojis {
+    padding: 3px;
+    margin: 2px;
 }
 
-ul li {
-    margin: 1px;    
+ul#chrome-extension-unlisted-items{
+    position: absolute;
+    width: 150px;
+    background-color: antiquewhite;
+    top: 35px;
+    z-index: 90;
+    margin: 5px;
+    padding: 4px;
 }

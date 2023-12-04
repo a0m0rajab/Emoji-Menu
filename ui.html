@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div>
+    <label for="emoji-search">Search:</label>
+    <input id="emoji-search">
+    <button id="emoji-search-button">Search</button>
+    <ul id="chrome-extension-unlisted-items">
+    <li id="chrome-extension-emojis">🎄 Tree </li>
+    <li id="chrome-extension-emojis">❤️ heart </li>
+    <li id="chrome-extension-emojis">✨ stars </li>
+    <li id="chrome-extension-emojis">🎁 box</li>
+    </ul>
+    </div>
+    <script>
+        let emojiData = [
+    {
+        "slug": "e1-0-grinning-face",
+        "character": "😀",
+        "unicodeName": "E1.0 grinning face",
+        "codePoint": "1F600",
+        "group": "smileys-emotion",
+        "subGroup": "face-smiling"
+    },
+    {
+        "slug": "e0-6-grinning-face-with-big-eyes",
+        "character": "😃",
+        "unicodeName": "E0.6 grinning face with big eyes",
+        "codePoint": "1F603",
+        "group": "smileys-emotion",
+        "subGroup": "face-smiling"
+    },
+    {
+        "slug": "e0-6-grinning-face-with-smiling-eyes",
+        "character": "😄",
+        "unicodeName": "E0.6 grinning face with smiling eyes",
+        "codePoint": "1F604",
+        "group": "smileys-emotion",
+        "subGroup": "face-smiling"
+    },
+    {
+        "slug": "e0-6-beaming-face-with-smiling-eyes",
+        "character": "😁",
+        "unicodeName": "E0.6 beaming face with smiling eyes",
+        "codePoint": "1F601",
+        "group": "smileys-emotion",
+        "subGroup": "face-smiling"
+    },
+    {
+        "slug": "e0-6-grinning-squinting-face",
+        "character": "😆",
+        "unicodeName": "E0.6 grinning squinting face",
+        "codePoint": "1F606",
+        "group": "smileys-emotion",
+        "subGroup": "face-smiling"
+    },
+    {
+        "slug": "e0-6-grinning-face-with-sweat",
+        "character": "😅",
+        "unicodeName": "E0.6 grinning face with sweat",
+        "codePoint": "1F605",
+        "group": "smileys-emotion",
+        "subGroup": "face-smiling"
+    },
+    {
+        "slug": "e0-6-face-with-tears-of-joy",
+        "character": "😂",
+        "unicodeName": "E0.6 face with tears of joy",
+        "codePoint": "1F602",
+        "group": "smileys-emotion",
+        "subGroup": "face-smiling"
+    },
+    {
+        "slug": "e1-0-slightly-smiling-face",
+        "character": "🙂",
+        "unicodeName": "E1.0 slightly smiling face",
+        "codePoint": "1F642",
+        "group": "smileys-emotion",
+        "subGroup": "face-smiling"
+    },
+    {
+        "slug": "e1-0-upside-down-face",
+        "character": "🙃",
+        "unicodeName": "E1.0 upside-down face",
+        "codePoint": "1F643",
+        "group": "smileys-emotion",
+        "subGroup": "face-smiling"
+    },
+    {
+        "slug": "e14-0-melting-face",
+        "character": "🫠",
+        "unicodeName": "E14.0 melting face",
+        "codePoint": "1FAE0",
+        "group": "smileys-emotion",
+        "subGroup": "face-smiling"
+    },
+    {
+        "slug": "e0-6-winking-face",
+        "character": "😉",
+        "unicodeName": "E0.6 winking face",
+        "codePoint": "1F609",
+        "group": "smileys-emotion",
+        "subGroup": "face-smiling"
+    },
+    {
+        "slug": "e0-6-smiling-face-with-smiling-eyes",
+        "character": "😊",
+        "unicodeName": "E0.6 smiling face with smiling eyes",
+        "codePoint": "1F60A",
+        "group": "smileys-emotion",
+        "subGroup": "face-smiling"
+    },
+    {
+        "slug": "e1-0-smiling-face-with-halo",
+        "character": "😇",
+        "unicodeName": "E1.0 smiling face with halo",
+        "codePoint": "1F607",
+        "group": "smileys-emotion",
+        "subGroup": "face-smiling"
+    },
+    {
+        "slug": "e11-0-smiling-face-with-hearts",
+        "character": "🥰",
+        "unicodeName": "E11.0 smiling face with hearts",
+        "codePoint": "1F970",
+        "group": "smileys-emotion",
+        "subGroup": "face-affection"
+    },
+    {
+        "slug": "e0-6-smiling-face-with-heart-eyes",
+        "character": "😍",
+        "unicodeName": "E0.6 smiling face with heart-eyes",
+        "codePoint": "1F60D",
+        "group": "smileys-emotion",
+        "subGroup": "face-affection"
+    },
+    {
+        "slug": "e0-6-face-blowing-a-kiss",
+        "character": "😘",
+        "unicodeName": "E0.6 face blowing a kiss",
+        "codePoint": "1F618",
+        "group": "smileys-emotion",
+        "subGroup": "face-affection"
+    },
+    {
+        "slug": "e1-0-kissing-face",
+        "character": "😗",
+        "unicodeName": "E1.0 kissing face",
+        "codePoint": "1F617",
+        "group": "smileys-emotion",
+        "subGroup": "face-affection"
+    },
+    {
+        "slug": "e0-6-smiling-face",
+        "character": "☺️",
+        "unicodeName": "E0.6 smiling face",
+        "codePoint": "263A FE0F",
+        "group": "smileys-emotion",
+        "subGroup": "face-affection"
+    },
+    {
+        "slug": "e0-6-kissing-face-with-closed-eyes",
+        "character": "😚",
+        "unicodeName": "E0.6 kissing face with closed eyes",
+        "codePoint": "1F61A",
+        "group": "smileys-emotion",
+        "subGroup": "face-affection"
+    },
+    {
+        "slug": "e1-0-kissing-face-with-smiling-eyes",
+        "character": "😙",
+        "unicodeName": "E1.0 kissing face with smiling eyes",
+        "codePoint": "1F619",
+        "group": "smileys-emotion",
+        "subGroup": "face-affection"
+    },
+    {
+        "slug": "e13-0-smiling-face-with-tear",
+        "character": "🥲",
+        "unicodeName": "E13.0 smiling face with tear",
+        "codePoint": "1F972",
+        "group": "smileys-emotion",
+        "subGroup": "face-affection"
+    },
+    {
+        "slug": "e0-6-face-savoring-food",
+        "character": "😋",
+        "unicodeName": "E0.6 face savoring food",
+        "codePoint": "1F60B",
+        "group": "smileys-emotion",
+        "subGroup": "face-tongue"
+    },
+    {
+        "slug": "e1-0-face-with-tongue",
+        "character": "😛",
+        "unicodeName": "E1.0 face with tongue",
+        "codePoint": "1F61B",
+        "group": "smileys-emotion",
+        "subGroup": "face-tongue"
+    },
+    {
+        "slug": "e0-6-winking-face-with-tongue",
+        "character": "😜",
+        "unicodeName": "E0.6 winking face with tongue",
+        "codePoint": "1F61C",
+        "group": "smileys-emotion",
+        "subGroup": "face-tongue"
+    },
+    {
+        "slug": "e5-0-zany-face",
+        "character": "🤪",
+        "unicodeName": "E5.0 zany face",
+        "codePoint": "1F92A",
+        "group": "smileys-emotion",
+        "subGroup": "face-tongue"
+    },
+    {
+        "slug": "e0-6-squinting-face-with-tongue",
+        "character": "😝",
+        "unicodeName": "E0.6 squinting face with tongue",
+        "codePoint": "1F61D",
+        "group": "smileys-emotion",
+        "subGroup": "face-tongue"
+    },
+    {
+        "slug": "e1-0-money-mouth-face",
+        "character": "🤑",
+        "unicodeName": "E1.0 money-mouth face",
+        "codePoint": "1F911",
+        "group": "smileys-emotion",
+        "subGroup": "face-tongue"
+    },
+    {
+        "slug": "e1-0-smiling-face-with-open-hands",
+        "character": "🤗",
+        "unicodeName": "E1.0 smiling face with open hands",
+        "codePoint": "1F917",
+        "group": "smileys-emotion",
+        "subGroup": "face-hand"
+    },
+    {
+        "slug": "e5-0-face-with-hand-over-mouth",
+        "character": "🤭",
+        "unicodeName": "E5.0 face with hand over mouth",
+        "codePoint": "1F92D",
+        "group": "smileys-emotion",
+        "subGroup": "face-hand"
+    },
+    {
+        "slug": "e14-0-face-with-open-eyes-and-hand-over-mouth",
+        "character": "🫢",
+        "unicodeName": "E14.0 face with open eyes and hand over mouth",
+        "codePoint": "1FAE2",
+        "group": "smileys-emotion",
+        "subGroup": "face-hand"
+    },
+    {
+        "slug": "e14-0-face-with-peeking-eye",
+        "character": "🫣",
+        "unicodeName": "E14.0 face with peeking eye",
+        "codePoint": "1FAE3",
+        "group": "smileys-emotion",
+        "subGroup": "face-hand"
+    },
+    {
+        "slug": "e5-0-shushing-face",
+        "character": "🤫",
+        "unicodeName": "E5.0 shushing face",
+        "codePoint": "1F92B",
+        "group": "smileys-emotion",
+        "subGroup": "face-hand"
+    },
+    {
+        "slug": "e1-0-thinking-face",
+        "character": "🤔",
+        "unicodeName": "E1.0 thinking face",
+        "codePoint": "1F914",
+        "group": "smileys-emotion",
+        "subGroup": "face-hand"
+    },
+    {
+        "slug": "e14-0-saluting-face",
+        "character": "🫡",
+        "unicodeName": "E14.0 saluting face",
+        "codePoint": "1FAE1",
+        "group": "smileys-emotion",
+        "subGroup": "face-hand"
+    },
+    {
+        "slug": "e1-0-zipper-mouth-face",
+        "character": "🤐",
+        "unicodeName": "E1.0 zipper-mouth face",
+        "codePoint": "1F910",
+        "group": "smileys-emotion",
+        "subGroup": "face-neutral-skeptical"
+    },
+    {
+        "slug": "e5-0-face-with-raised-eyebrow",
+        "character": "🤨",
+        "unicodeName": "E5.0 face with raised eyebrow",
+        "codePoint": "1F928",
+        "group": "smileys-emotion",
+        "subGroup": "face-neutral-skeptical"
+    },
+    {
+        "slug": "e0-7-neutral-face",
+        "character": "😐",
+        "unicodeName": "E0.7 neutral face",
+        "codePoint": "1F610",
+        "group": "smileys-emotion",
+        "subGroup": "face-neutral-skeptical"
+    },
+    {
+        "slug": "e1-0-expressionless-face",
+        "character": "😑",
+        "unicodeName": "E1.0 expressionless face",
+        "codePoint": "1F611",
+        "group": "smileys-emotion",
+        "subGroup": "face-neutral-skeptical"
+    },
+    {
+        "slug": "e1-0-face-without-mouth",
+        "character": "😶",
+        "unicodeName": "E1.0 face without mouth",
+        "codePoint": "1F636",
+        "group": "smileys-emotion",
+        "subGroup": "face-neutral-skeptical"
+    },
+    {
+        "slug": "e14-0-dotted-line-face",
+        "character": "🫥",
+        "unicodeName": "E14.0 dotted line face",
+        "codePoint": "1FAE5",
+        "group": "smileys-emotion",
+        "subGroup": "face-neutral-skeptical"
+    },
+    {
+        "slug": "e13-1-face-in-clouds",
+        "character": "😶‍🌫️",
+        "unicodeName": "E13.1 face in clouds",
+        "codePoint": "1F636 200D 1F32B FE0F",
+        "group": "smileys-emotion",
+        "subGroup": "face-neutral-skeptical"
+    },
+    {
+        "slug": "e0-6-smirking-face",
+        "character": "😏",
+        "unicodeName": "E0.6 smirking face",
+        "codePoint": "1F60F",
+        "group": "smileys-emotion",
+        "subGroup": "face-neutral-skeptical"
+    },
+    {
+        "slug": "e0-6-unamused-face",
+        "character": "😒",
+        "unicodeName": "E0.6 unamused face",
+        "codePoint": "1F612",
+        "group": "smileys-emotion",
+        "subGroup": "face-neutral-skeptical"
+    },
+    {
+        "slug": "e1-0-face-with-rolling-eyes",
+        "character": "🙄",
+        "unicodeName": "E1.0 face with rolling eyes",
+        "codePoint": "1F644",
+        "group": "smileys-emotion",
+        "subGroup": "face-neutral-skeptical"
+    },
+    {
+        "slug": "e1-0-grimacing-face",
+        "character": "😬",
+        "unicodeName": "E1.0 grimacing face",
+        "codePoint": "1F62C",
+        "group": "smileys-emotion",
+        "subGroup": "face-neutral-skeptical"
+    },
+    {
+        "slug": "e13-1-face-exhaling",
+        "character": "😮‍💨",
+        "unicodeName": "E13.1 face exhaling",
+        "codePoint": "1F62E 200D 1F4A8",
+        "group": "smileys-emotion",
+        "subGroup": "face-neutral-skeptical"
+    },
+    {
+        "slug": "e3-0-lying-face",
+        "character": "🤥",
+        "unicodeName": "E3.0 lying face",
+        "codePoint": "1F925",
+        "group": "smileys-emotion",
+        "subGroup": "face-neutral-skeptical"
+    },
+    {
+        "slug": "e15-0-shaking-face",
+        "character": "🫨",
+        "unicodeName": "E15.0 shaking face",
+        "codePoint": "1FAE8",
+        "group": "smileys-emotion",
+        "subGroup": "face-neutral-skeptical"
+    },
+    {
+        "slug": "e0-6-relieved-face",
+        "character": "😌",
+        "unicodeName": "E0.6 relieved face",
+        "codePoint": "1F60C",
+        "group": "smileys-emotion",
+        "subGroup": "face-sleepy"
+    },
+    {
+        "slug": "e0-6-pensive-face",
+        "character": "😔",
+        "unicodeName": "E0.6 pensive face",
+        "codePoint": "1F614",
+        "group": "smileys-emotion",
+        "subGroup": "face-sleepy"
+    },
+    {
+        "slug": "e0-6-sleepy-face",
+        "character": "😪",
+        "unicodeName": "E0.6 sleepy face",
+        "codePoint": "1F62A",
+        "group": "smileys-emotion",
+        "subGroup": "face-sleepy"
+    },
+    {
+        "slug": "e3-0-drooling-face",
+        "character": "🤤",
+        "unicodeName": "E3.0 drooling face",
+        "codePoint": "1F924",
+        "group": "smileys-emotion",
+        "subGroup": "face-sleepy"
+    },
+    {
+        "slug": "e1-0-sleeping-face",
+        "character": "😴",
+        "unicodeName": "E1.0 sleeping face",
+        "codePoint": "1F634",
+        "group": "smileys-emotion",
+        "subGroup": "face-sleepy"
+    },
+    {
+        "slug": "e0-6-face-with-medical-mask",
+        "character": "😷",
+        "unicodeName": "E0.6 face with medical mask",
+        "codePoint": "1F637",
+        "group": "smileys-emotion",
+        "subGroup": "face-unwell"
+    },
+    {
+        "slug": "e1-0-face-with-thermometer",
+        "character": "🤒",
+        "unicodeName": "E1.0 face with thermometer",
+        "codePoint": "1F912",
+        "group": "smileys-emotion",
+        "subGroup": "face-unwell"
+    },
+    {
+        "slug": "e1-0-face-with-head-bandage",
+        "character": "🤕",
+        "unicodeName": "E1.0 face with head-bandage",
+        "codePoint": "1F915",
+        "group": "smileys-emotion",
+        "subGroup": "face-unwell"
+    },
+    {
+        "slug": "e3-0-nauseated-face",
+        "character": "🤢",
+        "unicodeName": "E3.0 nauseated face",
+        "codePoint": "1F922",
+        "group": "smileys-emotion",
+        "subGroup": "face-unwell"
+    },
+    {
+        "slug": "e5-0-face-vomiting",
+        "character": "🤮",
+        "unicodeName": "E5.0 face vomiting",
+        "codePoint": "1F92E",
+        "group": "smileys-emotion",
+        "subGroup": "face-unwell"
+    },
+    {
+        "slug": "e3-0-sneezing-face",
+        "character": "🤧",
+        "unicodeName": "E3.0 sneezing face",
+        "codePoint": "1F927",
+        "group": "smileys-emotion",
+        "subGroup": "face-unwell"
+    },
+    {
+        "slug": "e11-0-hot-face",
+        "character": "🥵",
+        "unicodeName": "E11.0 hot face",
+        "codePoint": "1F975",
+        "group": "smileys-emotion",
+        "subGroup": "face-unwell"
+    },
+    {
+        "slug": "e11-0-cold-face",
+        "character": "🥶",
+        "unicodeName": "E11.0 cold face",
+        "codePoint": "1F976",
+        "group": "smileys-emotion",
+        "subGroup": "face-unwell"
+    },
+    {
+        "slug": "e11-0-woozy-face",
+        "character": "🥴",
+        "unicodeName": "E11.0 woozy face",
+        "codePoint": "1F974",
+        "group": "smileys-emotion",
+        "subGroup": "face-unwell"
+    },
+    {
+        "slug": "e0-6-face-with-crossed-out-eyes",
+        "character": "😵",
+        "unicodeName": "E0.6 face with crossed-out eyes",
+        "codePoint": "1F635",
+        "group": "smileys-emotion",
+        "subGroup": "face-unwell",
+        "variants": [
+            {
+                "slug": "e13-1-face-with-spiral-eyes",
+                "character": "😵‍💫"
+            }
+        ]
+    },
+    {
+        "slug": "e13-1-face-with-spiral-eyes",
+        "character": "😵‍💫",
+        "unicodeName": "E13.1 face with spiral eyes",
+        "codePoint": "1F635 200D 1F4AB",
+        "group": "smileys-emotion",
+        "subGroup": "face-unwell",
+        "parent": "e0-6-face-with-crossed-out-eyes"
+    },
+    {
+        "slug": "e3-0-cowboy-hat-face",
+        "character": "🤠",
+        "unicodeName": "E3.0 cowboy hat face",
+        "codePoint": "1F920",
+        "group": "smileys-emotion",
+        "subGroup": "face-hat"
+    },
+    {
+        "slug": "e11-0-partying-face",
+        "character": "🥳",
+        "unicodeName": "E11.0 partying face",
+        "codePoint": "1F973",
+        "group": "smileys-emotion",
+        "subGroup": "face-hat"
+    },
+    {
+        "slug": "e13-0-disguised-face",
+        "character": "🥸",
+        "unicodeName": "E13.0 disguised face",
+        "codePoint": "1F978",
+        "group": "smileys-emotion",
+        "subGroup": "face-hat"
+    },
+    {
+        "slug": "e1-0-smiling-face-with-sunglasses",
+        "character": "😎",
+        "unicodeName": "E1.0 smiling face with sunglasses",
+        "codePoint": "1F60E",
+        "group": "smileys-emotion",
+        "subGroup": "face-glasses"
+    },
+    {
+        "slug": "e1-0-nerd-face",
+        "character": "🤓",
+        "unicodeName": "E1.0 nerd face",
+        "codePoint": "1F913",
+        "group": "smileys-emotion",
+        "subGroup": "face-glasses"
+    },
+    {
+        "slug": "e5-0-face-with-monocle",
+        "character": "🧐",
+        "unicodeName": "E5.0 face with monocle",
+        "codePoint": "1F9D0",
+        "group": "smileys-emotion",
+        "subGroup": "face-glasses"
+    },
+    {
+        "slug": "e1-0-confused-face",
+        "character": "😕",
+        "unicodeName": "E1.0 confused face",
+        "codePoint": "1F615",
+        "group": "smileys-emotion",
+        "subGroup": "face-concerned"
+    },
+    {
+        "slug": "e14-0-face-with-diagonal-mouth",
+        "character": "🫤",
+        "unicodeName": "E14.0 face with diagonal mouth",
+        "codePoint": "1FAE4",
+        "group": "smileys-emotion",
+        "subGroup": "face-concerned"
+    },
+    {
+        "slug": "e1-0-worried-face",
+        "character": "😟",
+        "unicodeName": "E1.0 worried face",
+        "codePoint": "1F61F",
+        "group": "smileys-emotion",
+        "subGroup": "face-concerned"
+    },
+    {
+        "slug": "e1-0-slightly-frowning-face",
+        "character": "🙁",
+        "unicodeName": "E1.0 slightly frowning face",
+        "codePoint": "1F641",
+        "group": "smileys-emotion",
+        "subGroup": "face-concerned"
+    },
+    {
+        "slug": "e0-7-frowning-face",
+        "character": "☹️",
+        "unicodeName": "E0.7 frowning face",
+        "codePoint": "2639 FE0F",
+        "group": "smileys-emotion",
+        "subGroup": "face-concerned"
+    },
+    {
+        "slug": "e1-0-face-with-open-mouth",
+        "character": "😮",
+        "unicodeName": "E1.0 face with open mouth",
+        "codePoint": "1F62E",
+        "group": "smileys-emotion",
+        "subGroup": "face-concerned"
+    },
+    {
+        "slug": "e1-0-hushed-face",
+        "character": "😯",
+        "unicodeName": "E1.0 hushed face",
+        "codePoint": "1F62F",
+        "group": "smileys-emotion",
+        "subGroup": "face-concerned"
+    },
+    {
+        "slug": "e0-6-astonished-face",
+        "character": "😲",
+        "unicodeName": "E0.6 astonished face",
+        "codePoint": "1F632",
+        "group": "smileys-emotion",
+        "subGroup": "face-concerned"
+    },
+    {
+        "slug": "e0-6-flushed-face",
+        "character": "😳",
+        "unicodeName": "E0.6 flushed face",
+        "codePoint": "1F633",
+        "group": "smileys-emotion",
+        "subGroup": "face-concerned"
+    },
+    {
+        "slug": "e11-0-pleading-face",
+        "character": "🥺",
+        "unicodeName": "E11.0 pleading face",
+        "codePoint": "1F97A",
+        "group": "smileys-emotion",
+        "subGroup": "face-concerned"
+    },
+    {
+        "slug": "e14-0-face-holding-back-tears",
+        "character": "🥹",
+        "unicodeName": "E14.0 face holding back tears",
+        "codePoint": "1F979",
+        "group": "smileys-emotion",
+        "subGroup": "face-concerned"
+    },
+    {
+        "slug": "e1-0-frowning-face-with-open-mouth",
+        "character": "😦",
+        "unicodeName": "E1.0 frowning face with open mouth",
+        "codePoint": "1F626",
+        "group": "smileys-emotion",
+        "subGroup": "face-concerned"
+    },
+    {
+        "slug": "e1-0-anguished-face",
+        "character": "😧",
+        "unicodeName": "E1.0 anguished face",
+        "codePoint": "1F627",
+        "group": "smileys-emotion",
+        "subGroup": "face-concerned"
+    },
+    {
+        "slug": "e0-6-fearful-face",
+        "character": "😨",
+        "unicodeName": "E0.6 fearful face",
+        "codePoint": "1F628",
+        "group": "smileys-emotion",
+        "subGroup": "face-concerned"
+    },
+    {
+        "slug": "e0-6-anxious-face-with-sweat",
+        "character": "😰",
+        "unicodeName": "E0.6 anxious face with sweat",
+        "codePoint": "1F630",
+        "group": "smileys-emotion",
+        "subGroup": "face-concerned"
+    },
+    {
+        "slug": "e0-6-sad-but-relieved-face",
+        "character": "😥",
+        "unicodeName": "E0.6 sad but relieved face",
+        "codePoint": "1F625",
+        "group": "smileys-emotion",
+        "subGroup": "face-concerned"
+    },
+    {
+        "slug": "e0-6-crying-face",
+        "character": "😢",
+        "unicodeName": "E0.6 crying face",
+        "codePoint": "1F622",
+        "group": "smileys-emotion",
+        "subGroup": "face-concerned"
+    },
+    {
+        "slug": "e0-6-loudly-crying-face",
+        "character": "😭",
+        "unicodeName": "E0.6 loudly crying face",
+        "codePoint": "1F62D",
+        "group": "smileys-emotion",
+        "subGroup": "face-concerned"
+    },
+    {
+        "slug": "e0-6-face-screaming-in-fear",
+        "character": "😱",
+        "unicodeName": "E0.6 face screaming in fear",
+        "codePoint": "1F631",
+        "group": "smileys-emotion",
+        "subGroup": "face-concerned"
+    },
+    {
+        "slug": "e0-6-confounded-face",
+        "character": "😖",
+        "unicodeName": "E0.6 confounded face",
+        "codePoint": "1F616",
+        "group": "smileys-emotion",
+        "subGroup": "face-concerned"
+    },
+    {
+        "slug": "e0-6-persevering-face",
+        "character": "😣",
+        "unicodeName": "E0.6 persevering face",
+        "codePoint": "1F623",
+        "group": "smileys-emotion",
+        "subGroup": "face-concerned"
+    },
+    {
+        "slug": "e0-6-disappointed-face",
+        "character": "😞",
+        "unicodeName": "E0.6 disappointed face",
+        "codePoint": "1F61E",
+        "group": "smileys-emotion",
+        "subGroup": "face-concerned"
+    },
+    {
+        "slug": "e0-6-downcast-face-with-sweat",
+        "character": "😓",
+        "unicodeName": "E0.6 downcast face with sweat",
+        "codePoint": "1F613",
+        "group": "smileys-emotion",
+        "subGroup": "face-concerned"
+    },
+    {
+        "slug": "e0-6-weary-face",
+        "character": "😩",
+        "unicodeName": "E0.6 weary face",
+        "codePoint": "1F629",
+        "group": "smileys-emotion",
+        "subGroup": "face-concerned"
+    },
+    {
+        "slug": "e0-6-tired-face",
+        "character": "😫",
+        "unicodeName": "E0.6 tired face",
+        "codePoint": "1F62B",
+        "group": "smileys-emotion",
+        "subGroup": "face-concerned"
+    },
+    {
+        "slug": "e12-0-yawning-face",
+        "character": "🥱",
+        "unicodeName": "E12.0 yawning face",
+        "codePoint": "1F971",
+        "group": "smileys-emotion",
+        "subGroup": "face-concerned"
+    },
+    {
+        "slug": "e0-6-face-with-steam-from-nose",
+        "character": "😤",
+        "unicodeName": "E0.6 face with steam from nose",
+        "codePoint": "1F624",
+        "group": "smileys-emotion",
+        "subGroup": "face-negative"
+    },
+    {
+        "slug": "e0-6-enraged-face",
+        "character": "😡",
+        "unicodeName": "E0.6 enraged face",
+        "codePoint": "1F621",
+        "group": "smileys-emotion",
+        "subGroup": "face-negative"
+    },
+    {
+        "slug": "e0-6-angry-face",
+        "character": "😠",
+        "unicodeName": "E0.6 angry face",
+        "codePoint": "1F620",
+        "group": "smileys-emotion",
+        "subGroup": "face-negative"
+    },
+    {
+        "slug": "e5-0-face-with-symbols-on-mouth",
+        "character": "🤬",
+        "unicodeName": "E5.0 face with symbols on mouth",
+        "codePoint": "1F92C",
+        "group": "smileys-emotion",
+        "subGroup": "face-negative"
+    },
+    {
+        "slug": "e1-0-smiling-face-with-horns",
+        "character": "😈",
+        "unicodeName": "E1.0 smiling face with horns",
+        "codePoint": "1F608",
+        "group": "smileys-emotion",
+        "subGroup": "face-negative"
+    },
+    {
+        "slug": "e0-6-angry-face-with-horns",
+        "character": "👿",
+        "unicodeName": "E0.6 angry face with horns",
+        "codePoint": "1F47F",
+        "group": "smileys-emotion",
+        "subGroup": "face-negative"
+    },
+    {
+        "slug": "e3-0-clown-face",
+        "character": "🤡",
+        "unicodeName": "E3.0 clown face",
+        "codePoint": "1F921",
+        "group": "smileys-emotion",
+        "subGroup": "face-costume"
+    },
+    {
+        "slug": "e3-0-person-facepalming",
+        "character": "🤦",
+        "unicodeName": "E3.0 person facepalming",
+        "codePoint": "1F926",
+        "group": "people-body",
+        "subGroup": "person-gesture",
+        "variants": [
+            {
+                "slug": "e3-0-person-facepalming-light-skin-tone",
+                "character": "🤦🏻"
+            },
+            {
+                "slug": "e3-0-person-facepalming-medium-light-skin-tone",
+                "character": "🤦🏼"
+            },
+            {
+                "slug": "e3-0-person-facepalming-medium-skin-tone",
+                "character": "🤦🏽"
+            },
+            {
+                "slug": "e3-0-person-facepalming-medium-dark-skin-tone",
+                "character": "🤦🏾"
+            },
+            {
+                "slug": "e3-0-person-facepalming-dark-skin-tone",
+                "character": "🤦🏿"
+            },
+            {
+                "slug": "e4-0-man-facepalming",
+                "character": "🤦‍♂️"
+            },
+            {
+                "slug": "e4-0-man-facepalming-light-skin-tone",
+                "character": "🤦🏻‍♂️"
+            },
+            {
+                "slug": "e4-0-man-facepalming-medium-light-skin-tone",
+                "character": "🤦🏼‍♂️"
+            },
+            {
+                "slug": "e4-0-man-facepalming-medium-skin-tone",
+                "character": "🤦🏽‍♂️"
+            },
+            {
+                "slug": "e4-0-man-facepalming-medium-dark-skin-tone",
+                "character": "🤦🏾‍♂️"
+            },
+            {
+                "slug": "e4-0-man-facepalming-dark-skin-tone",
+                "character": "🤦🏿‍♂️"
+            },
+            {
+                "slug": "e4-0-woman-facepalming",
+                "character": "🤦‍♀️"
+            },
+            {
+                "slug": "e4-0-woman-facepalming-light-skin-tone",
+                "character": "🤦🏻‍♀️"
+            },
+            {
+                "slug": "e4-0-woman-facepalming-medium-light-skin-tone",
+                "character": "🤦🏼‍♀️"
+            },
+            {
+                "slug": "e4-0-woman-facepalming-medium-skin-tone",
+                "character": "🤦🏽‍♀️"
+            },
+            {
+                "slug": "e4-0-woman-facepalming-medium-dark-skin-tone",
+                "character": "🤦🏾‍♀️"
+            },
+            {
+                "slug": "e4-0-woman-facepalming-dark-skin-tone",
+                "character": "🤦🏿‍♀️"
+            }
+        ]
+    },
+    {
+        "slug": "e3-0-person-facepalming-light-skin-tone",
+        "character": "🤦🏻",
+        "unicodeName": "E3.0 person facepalming: light skin tone",
+        "codePoint": "1F926 1F3FB",
+        "group": "people-body",
+        "subGroup": "person-gesture",
+        "parent": "e3-0-person-facepalming"
+    },
+    {
+        "slug": "e3-0-person-facepalming-medium-light-skin-tone",
+        "character": "🤦🏼",
+        "unicodeName": "E3.0 person facepalming: medium-light skin tone",
+        "codePoint": "1F926 1F3FC",
+        "group": "people-body",
+        "subGroup": "person-gesture",
+        "parent": "e3-0-person-facepalming"
+    },
+    {
+        "slug": "e3-0-person-facepalming-medium-skin-tone",
+        "character": "🤦🏽",
+        "unicodeName": "E3.0 person facepalming: medium skin tone",
+        "codePoint": "1F926 1F3FD",
+        "group": "people-body",
+        "subGroup": "person-gesture",
+        "parent": "e3-0-person-facepalming"
+    },
+    {
+        "slug": "e3-0-person-facepalming-medium-dark-skin-tone",
+        "character": "🤦🏾",
+        "unicodeName": "E3.0 person facepalming: medium-dark skin tone",
+        "codePoint": "1F926 1F3FE",
+        "group": "people-body",
+        "subGroup": "person-gesture",
+        "parent": "e3-0-person-facepalming"
+    },
+    {
+        "slug": "e3-0-person-facepalming-dark-skin-tone",
+        "character": "🤦🏿",
+        "unicodeName": "E3.0 person facepalming: dark skin tone",
+        "codePoint": "1F926 1F3FF",
+        "group": "people-body",
+        "subGroup": "person-gesture",
+        "parent": "e3-0-person-facepalming"
+    },
+    {
+        "slug": "e4-0-man-facepalming",
+        "character": "🤦‍♂️",
+        "unicodeName": "E4.0 man facepalming",
+        "codePoint": "1F926 200D 2642 FE0F",
+        "group": "people-body",
+        "subGroup": "person-gesture",
+        "parent": "e3-0-person-facepalming"
+    },
+    {
+        "slug": "e4-0-man-facepalming-light-skin-tone",
+        "character": "🤦🏻‍♂️",
+        "unicodeName": "E4.0 man facepalming: light skin tone",
+        "codePoint": "1F926 1F3FB 200D 2642 FE0F",
+        "group": "people-body",
+        "subGroup": "person-gesture",
+        "parent": "e3-0-person-facepalming"
+    },
+    {
+        "slug": "e4-0-man-facepalming-medium-light-skin-tone",
+        "character": "🤦🏼‍♂️",
+        "unicodeName": "E4.0 man facepalming: medium-light skin tone",
+        "codePoint": "1F926 1F3FC 200D 2642 FE0F",
+        "group": "people-body",
+        "subGroup": "person-gesture",
+        "parent": "e3-0-person-facepalming"
+    },
+    {
+        "slug": "e4-0-man-facepalming-medium-skin-tone",
+        "character": "🤦🏽‍♂️",
+        "unicodeName": "E4.0 man facepalming: medium skin tone",
+        "codePoint": "1F926 1F3FD 200D 2642 FE0F",
+        "group": "people-body",
+        "subGroup": "person-gesture",
+        "parent": "e3-0-person-facepalming"
+    },
+    {
+        "slug": "e4-0-man-facepalming-medium-dark-skin-tone",
+        "character": "🤦🏾‍♂️",
+        "unicodeName": "E4.0 man facepalming: medium-dark skin tone",
+        "codePoint": "1F926 1F3FE 200D 2642 FE0F",
+        "group": "people-body",
+        "subGroup": "person-gesture",
+        "parent": "e3-0-person-facepalming"
+    },
+    {
+        "slug": "e4-0-man-facepalming-dark-skin-tone",
+        "character": "🤦🏿‍♂️",
+        "unicodeName": "E4.0 man facepalming: dark skin tone",
+        "codePoint": "1F926 1F3FF 200D 2642 FE0F",
+        "group": "people-body",
+        "subGroup": "person-gesture",
+        "parent": "e3-0-person-facepalming"
+    },
+    {
+        "slug": "e4-0-woman-facepalming",
+        "character": "🤦‍♀️",
+        "unicodeName": "E4.0 woman facepalming",
+        "codePoint": "1F926 200D 2640 FE0F",
+        "group": "people-body",
+        "subGroup": "person-gesture",
+        "parent": "e3-0-person-facepalming"
+    },
+    {
+        "slug": "e4-0-woman-facepalming-light-skin-tone",
+        "character": "🤦🏻‍♀️",
+        "unicodeName": "E4.0 woman facepalming: light skin tone",
+        "codePoint": "1F926 1F3FB 200D 2640 FE0F",
+        "group": "people-body",
+        "subGroup": "person-gesture",
+        "parent": "e3-0-person-facepalming"
+    },
+    {
+        "slug": "e4-0-woman-facepalming-medium-light-skin-tone",
+        "character": "🤦🏼‍♀️",
+        "unicodeName": "E4.0 woman facepalming: medium-light skin tone",
+        "codePoint": "1F926 1F3FC 200D 2640 FE0F",
+        "group": "people-body",
+        "subGroup": "person-gesture",
+        "parent": "e3-0-person-facepalming"
+    },
+    {
+        "slug": "e4-0-woman-facepalming-medium-skin-tone",
+        "character": "🤦🏽‍♀️",
+        "unicodeName": "E4.0 woman facepalming: medium skin tone",
+        "codePoint": "1F926 1F3FD 200D 2640 FE0F",
+        "group": "people-body",
+        "subGroup": "person-gesture",
+        "parent": "e3-0-person-facepalming"
+    },
+    {
+        "slug": "e4-0-woman-facepalming-medium-dark-skin-tone",
+        "character": "🤦🏾‍♀️",
+        "unicodeName": "E4.0 woman facepalming: medium-dark skin tone",
+        "codePoint": "1F926 1F3FE 200D 2640 FE0F",
+        "group": "people-body",
+        "subGroup": "person-gesture",
+        "parent": "e3-0-person-facepalming"
+    },
+    {
+        "slug": "e4-0-woman-facepalming-dark-skin-tone",
+        "character": "🤦🏿‍♀️",
+        "unicodeName": "E4.0 woman facepalming: dark skin tone",
+        "codePoint": "1F926 1F3FF 200D 2640 FE0F",
+        "group": "people-body",
+        "subGroup": "person-gesture",
+        "parent": "e3-0-person-facepalming"
+    },
+    {
+        "slug": "e0-6-monkey-face",
+        "character": "🐵",
+        "unicodeName": "E0.6 monkey face",
+        "codePoint": "1F435",
+        "group": "animals-nature",
+        "subGroup": "animal-mammal"
+    },
+    {
+        "slug": "e0-6-dog-face",
+        "character": "🐶",
+        "unicodeName": "E0.6 dog face",
+        "codePoint": "1F436",
+        "group": "animals-nature",
+        "subGroup": "animal-mammal"
+    },
+    {
+        "slug": "e0-6-cat-face",
+        "character": "🐱",
+        "unicodeName": "E0.6 cat face",
+        "codePoint": "1F431",
+        "group": "animals-nature",
+        "subGroup": "animal-mammal"
+    },
+    {
+        "slug": "e0-6-tiger-face",
+        "character": "🐯",
+        "unicodeName": "E0.6 tiger face",
+        "codePoint": "1F42F",
+        "group": "animals-nature",
+        "subGroup": "animal-mammal"
+    },
+    {
+        "slug": "e0-6-horse-face",
+        "character": "🐴",
+        "unicodeName": "E0.6 horse face",
+        "codePoint": "1F434",
+        "group": "animals-nature",
+        "subGroup": "animal-mammal"
+    },
+    {
+        "slug": "e0-6-cow-face",
+        "character": "🐮",
+        "unicodeName": "E0.6 cow face",
+        "codePoint": "1F42E",
+        "group": "animals-nature",
+        "subGroup": "animal-mammal"
+    },
+    {
+        "slug": "e0-6-pig-face",
+        "character": "🐷",
+        "unicodeName": "E0.6 pig face",
+        "codePoint": "1F437",
+        "group": "animals-nature",
+        "subGroup": "animal-mammal"
+    },
+    {
+        "slug": "e0-6-mouse-face",
+        "character": "🐭",
+        "unicodeName": "E0.6 mouse face",
+        "codePoint": "1F42D",
+        "group": "animals-nature",
+        "subGroup": "animal-mammal"
+    },
+    {
+        "slug": "e0-6-rabbit-face",
+        "character": "🐰",
+        "unicodeName": "E0.6 rabbit face",
+        "codePoint": "1F430",
+        "group": "animals-nature",
+        "subGroup": "animal-mammal"
+    },
+    {
+        "slug": "e0-6-dragon-face",
+        "character": "🐲",
+        "unicodeName": "E0.6 dragon face",
+        "codePoint": "1F432",
+        "group": "animals-nature",
+        "subGroup": "animal-reptile"
+    },
+    {
+        "slug": "e1-0-new-moon-face",
+        "character": "🌚",
+        "unicodeName": "E1.0 new moon face",
+        "codePoint": "1F31A",
+        "group": "travel-places",
+        "subGroup": "sky-weather"
+    },
+    {
+        "slug": "e0-6-first-quarter-moon-face",
+        "character": "🌛",
+        "unicodeName": "E0.6 first quarter moon face",
+        "codePoint": "1F31B",
+        "group": "travel-places",
+        "subGroup": "sky-weather"
+    },
+    {
+        "slug": "e0-7-last-quarter-moon-face",
+        "character": "🌜",
+        "unicodeName": "E0.7 last quarter moon face",
+        "codePoint": "1F31C",
+        "group": "travel-places",
+        "subGroup": "sky-weather"
+    },
+    {
+        "slug": "e1-0-full-moon-face",
+        "character": "🌝",
+        "unicodeName": "E1.0 full moon face",
+        "codePoint": "1F31D",
+        "group": "travel-places",
+        "subGroup": "sky-weather"
+    },
+    {
+        "slug": "e1-0-sun-with-face",
+        "character": "🌞",
+        "unicodeName": "E1.0 sun with face",
+        "codePoint": "1F31E",
+        "group": "travel-places",
+        "subGroup": "sky-weather"
+    },
+    {
+        "slug": "e0-7-wind-face",
+        "character": "🌬️",
+        "unicodeName": "E0.7 wind face",
+        "codePoint": "1F32C FE0F",
+        "group": "travel-places",
+        "subGroup": "sky-weather"
+    }
+];
+        let searchButton = document.querySelector("#emoji-search-button")
+        searchButton.addEventListener("click", function(){
+            let searchQuery = document.querySelector("#emoji-search").value 
+            let searchButton = document.querySelector("#emoji-search-button")
+            let emojiList = document.querySelector("#chrome-extension-unlisted-items")
+            // remove the children of emojiList
+            emojiList.innerHTML = ""
+            // fetch the emojis from the api
+            // fetch(`https://emoji-api.com/emojis?search=${searchQuery}&access_key=0e0c4b2b0b5b2a2b2c0a0b2b2b2b2b2b2b2b2b2`).then(function(response){
+            //     return response.json()
+            // }).then(function(json){
+            //     // loop through the json data
+                for(let i = 0; i < 5; i++){
+                    debugger;
+                    // create a new li element
+                    let newLi = document.createElement("li")
+                    // set the innerHTML of the new li element to the emoji
+                    newLi.innerHTML =  `<emoji>${emojiData[i].character}</emoji>`+ emojiData[i].unicodeName
+                    // append the new li element to the emojiList
+                    emojiList.appendChild(newLi)
+                }
+            // })
+            
+        })
+    </script>
+</body>
+</html>

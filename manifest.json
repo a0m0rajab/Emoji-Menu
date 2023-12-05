@@ -10,7 +10,8 @@
     "128": "images/icon-128.png"
   },
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "background.js",
+    "type": "module"
   },
   "action": {
     "default_icon": {
@@ -31,7 +32,7 @@
   }, 
   "content_scripts": [
     {
-      "matches": ["https://dev.to/opensauced/job-seekers-worksheet-build-your-resume-with-open-source-5am5"],
+      "matches": ["<all_urls>"],
       "css": ["style.css"],
       "js": ["content-script.js"]
     }

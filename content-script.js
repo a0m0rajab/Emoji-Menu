@@ -26,7 +26,7 @@ textareas.forEach((textarea) => {
       let latestText = textArray[0];
       console.log(latestText)
       chrome.runtime.sendMessage(
-        { type: 'emoji', query: latestText }, response => {
+        { type: 'emoji', query: latestText, onlyCSS: true }, response => {
           console.log(response)
         })
     }

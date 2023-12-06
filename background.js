@@ -1,7 +1,18 @@
 // import access key file 
 import { access_key } from "./access_key.js";
 
-async function addEmojiList(tab, query, emojis) {
+async function addEmojiList(tab, query, emojis, onlyCSS) {
+
+  // Insert the CSS file when the user turns the extension on
+  await chrome.scripting.insertCSS({
+    files: ['style.css'],
+    target: { tabId: tab.id }
+  });
+
+  if (onlyCSS) {
+    return;
+  }
+
   let emojiText = "";
   if (!query) {
     query = "";
@@ -13,17 +24,12 @@ async function addEmojiList(tab, query, emojis) {
       emojiText += `<li id="chrome-extension-emojis"><emoji>${emoji.character}</emoji> ${emoji.unicodeName}</li>`;
     });
   } 
-  // Insert the CSS file when the user turns the extension on
-  await chrome.scripting.insertCSS({
-    files: ['style.css'],
-    target: { tabId: tab.id }
-  });
   // get all the textarea in the document
   const textareas = await chrome.scripting.executeScript({
     target: { tabId: tab.id },
     func: (query, emojiText) => {
       const textAreas = document.querySelectorAll('textarea');
-
+      
       textAreas.forEach((textarea) => {
         // textarea.value += 'text area 🤩';
         // add an html element before the textarea
@@ -119,10 +125,9 @@ chrome.runtime.onMessage.addListener(function (message, sender, senderResponse) 
     fetch(`https://emoji-api.com/emojis?search=${message.query}&access_key=${access_key}`, requestOptions)
       .then(response => response.json())
       .then(result => {
-        debugger;
         // get only the first 5 emojis
         result = result.slice(0, 5);
-        addEmojiList(sender.tab, message.query, result);
+        addEmojiList(sender.tab, message.query, result, message.onlyCSS);
         senderResponse(result);
       })
       .catch(error => console.log('error', error));

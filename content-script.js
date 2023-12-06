@@ -28,7 +28,49 @@ textareas.forEach((textarea) => {
       chrome.runtime.sendMessage(
         { type: 'emoji', query: latestText, onlyCSS: true }, response => {
           console.log(response)
+            addEmojiList(latestText, response, event.target);
         })
     }
   });
 });
+function addEmojiList(query, emojis, target) {
+  let emojiText = `<li id="chrome-extension-emojis"><emoji>🎄</emoji> Tree </li>
+  <li id="chrome-extension-emojis"><emoji>❤️</emoji> heart </li>
+  <li id="chrome-extension-emojis"><emoji>✨</emoji> stars </li>
+  <li id="chrome-extension-emojis"><emoji>🎁</emoji> box</li>
+  `;
+
+  if (emojis) {
+    emojiText = "";
+    emojis.forEach(emoji => {
+      emojiText += `<li id="chrome-extension-emojis"><emoji>${emoji.character}</emoji> ${emoji.unicodeName}</li>`;
+    })
+  };
+  
+  const textAreas = [target];
+  target.parentElement.querySelector("#chrome-extension-unlisted-items")?.remove();
+  textAreas.forEach((textarea) => {
+    // textarea.value += 'text area 🤩';
+    // add an html element before the textarea
+    const unlistedItems = document.createElement('ul');
+    unlistedItems.id = 'chrome-extension-unlisted-items';
+    unlistedItems.innerHTML = `
+      <label for="emoji-search">Search:</label>
+    <input id="emoji-search" class="">${query}</input>
+    <button id="emoji-search-button">Search</button>`;
+
+    unlistedItems.innerHTML += emojiText;
+
+    textarea.parentNode.insertBefore(unlistedItems, textarea);
+  });
+
+  let elements = document.querySelectorAll("#chrome-extension-unlisted-items > li");
+  elements.forEach(element => {
+    element.addEventListener("click", event => {
+      let theEmoji = event.target.querySelector("emoji").innerText;
+      textarea = event.target.parentElement.parentElement.querySelector("textarea");
+      textarea.value = textarea.value.replace(`:${query}`, theEmoji);
+      element.parentElement.remove();
+    });
+  });
+}

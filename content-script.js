@@ -4,6 +4,7 @@ const textareas = document.querySelectorAll('textarea');
 // loop through all text areas
 textareas.forEach((textarea) => {
   textarea.addEventListener("input", (event) => {
+    console.log("Input event", event)
 
     // get the text area value
     const textAreaValue = event.target.value;
@@ -28,11 +29,17 @@ textareas.forEach((textarea) => {
       chrome.runtime.sendMessage(
         { type: 'emoji', query: latestText, onlyCSS: true }, response => {
           console.log(response)
+          if(response) {
             addEmojiList(latestText, response, event.target);
+          } else {
+            document.querySelector("#chrome-extension-unlisted-items")?.remove();
+          }
+          
         })
     }
   });
 });
+
 function addEmojiList(query, emojis, target) {
   let emojiText = `<li id="chrome-extension-emojis"><emoji>🎄</emoji> Tree </li>
   <li id="chrome-extension-emojis"><emoji>❤️</emoji> heart </li>

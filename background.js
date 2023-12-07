@@ -125,6 +125,9 @@ chrome.runtime.onMessage.addListener(function (message, sender, senderResponse) 
     fetch(`https://emoji-api.com/emojis?search=${message.query}&access_key=${access_key}`, requestOptions)
       .then(response => response.json())
       .then(result => {
+        if(result.status === "error") {
+          senderResponse(null);
+        }
         // get only the first 5 emojis
         result = result.slice(0, 5);
         addEmojiList(sender.tab, message.query, result, message.onlyCSS);

@@ -50,7 +50,8 @@ function addEmojiList(query, emojis, target) {
   if (emojis) {
     emojiText = "";
     emojis.forEach(emoji => {
-      emojiText += `<li id="chrome-extension-emojis"><emoji>${emoji.character}</emoji> ${emoji.unicodeName}</li>`;
+      let textOnly = emoji.unicodeName.replace(/^E\d+.\d+/g, "");
+      emojiText += `<li id="chrome-extension-emojis"><emoji>${emoji.character}</emoji> ${textOnly}</li>`;
     })
   };
   

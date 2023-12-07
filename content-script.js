@@ -62,10 +62,7 @@ function addEmojiList(query, emojis, target) {
     // add an html element before the textarea
     const unlistedItems = document.createElement('ul');
     unlistedItems.id = 'chrome-extension-unlisted-items';
-    unlistedItems.innerHTML = `
-      <label for="emoji-search">Search:</label>
-    <input id="emoji-search" class="">${query}</input>
-    <button id="emoji-search-button">Search</button>`;
+
 
     unlistedItems.innerHTML += emojiText;
 

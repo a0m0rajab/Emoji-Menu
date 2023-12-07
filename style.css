@@ -1,6 +1,8 @@
 li#chrome-extension-emojis {
     padding: 3px;
     margin: 2px;
+    display: block;
+    min-width: max-content;
 }
 
 ul#chrome-extension-unlisted-items{
@@ -11,4 +13,5 @@ ul#chrome-extension-unlisted-items{
     z-index: 90;
     margin: 5px;
     padding: 4px;
+    min-width: max-content;
 }

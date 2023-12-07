@@ -5,6 +5,11 @@ li#chrome-extension-emojis {
     min-width: max-content;
 }
 
+li#chrome-extension-emojis:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
 ul#chrome-extension-unlisted-items{
     position: absolute;
     width: 150px;

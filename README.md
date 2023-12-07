@@ -14,3 +14,5 @@ Based on the https://developer.chrome.com/docs/extensions/mv3/getstarted/tut-foc
 - the input event listener is working in the page but not in the content scripts.
 - add white and black list for the extension
 - improve the list and show only one list instead of multiple ones. 
+- check the focus after creating the elemenet 
+- add the list items after the text area cursor 

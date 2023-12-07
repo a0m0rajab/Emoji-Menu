@@ -75,8 +75,14 @@ function addEmojiList(query, emojis, target) {
   let elements = document.querySelectorAll("#chrome-extension-unlisted-items > li");
   elements.forEach(element => {
     element.addEventListener("click", event => {
-      let theEmoji = event.target.querySelector("emoji").innerText;
-      textarea = event.target.parentElement.parentElement.querySelector("textarea");
+      let theEmoji = "";
+      if (event.target.tagName === "EMOJI") {
+        theEmoji = event.target.innerText;
+      } else {
+        theEmoji = event.target.querySelector("emoji").innerText;
+      } 
+      
+      textarea = event.target.closest("#chrome-extension-unlisted-items").parentElement.querySelector("textarea");
       textarea.value = textarea.value.replace(`:${query}`, theEmoji);
       element.parentElement.remove();
     });

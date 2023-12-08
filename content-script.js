@@ -1,9 +1,5 @@
 console.log("content script running");
-// get all text areas in the page 
-const textareas = document.querySelectorAll('textarea');
-// loop through all text areas
-textareas.forEach((textarea) => {
-  textarea.addEventListener("input", (event) => {
+window.addEventListener("input", (event) => {
     console.log("Input event", event)
     let cursorPosition = event.target.selectionEnd;
 
@@ -46,7 +42,6 @@ textareas.forEach((textarea) => {
         })
     }
   });
-});
 
 function addEmojiList(query, emojis, target) {
   let emojiText = `<li id="chrome-extension-emojis"><emoji>🎄</emoji> Tree </li>

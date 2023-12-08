@@ -5,10 +5,18 @@ const textareas = document.querySelectorAll('textarea');
 textareas.forEach((textarea) => {
   textarea.addEventListener("input", (event) => {
     console.log("Input event", event)
+    let cursorPosition = event.target.selectionEnd;
 
     // get the text area value
-    const textAreaValue = event.target.value;
-
+    const textAreaValue = event.target.value.substring(0, cursorPosition);
+    // check the last index of new line 
+    const lastNewLine = textAreaValue.lastIndexOf("\n");
+    const isNewLine = lastNewLine + 1 === cursorPosition;
+    if (isNewLine) {
+      const unlistedItems = document.getElementById('chrome-extension-unlisted-items');
+      if (unlistedItems) unlistedItems.remove();
+      return;
+    }
     // check if latest element is : 
     const lastElement = textAreaValue.lastIndexOf(":");
     // Check if ":" is found in the string
@@ -29,12 +37,12 @@ textareas.forEach((textarea) => {
       chrome.runtime.sendMessage(
         { type: 'emoji', query: latestText, onlyCSS: true }, response => {
           console.log(response)
-          if(response) {
+          if (response) {
             addEmojiList(latestText, response, event.target);
           } else {
             document.querySelector("#chrome-extension-unlisted-items")?.remove();
           }
-          
+
         })
     }
   });
@@ -54,7 +62,7 @@ function addEmojiList(query, emojis, target) {
       emojiText += `<li id="chrome-extension-emojis"><emoji>${emoji.character}</emoji> ${textOnly}</li>`;
     })
   };
-  
+
   const textAreas = [target];
   target.parentElement.querySelector("#chrome-extension-unlisted-items")?.remove();
   textAreas.forEach((textarea) => {
@@ -71,13 +79,13 @@ function addEmojiList(query, emojis, target) {
 
     textarea.parentNode.insertBefore(unlistedItems, textarea);
     unlistedItems.style.top = element.offsetTop
-          - element.scrollTop
-          + coordinates.top
-          + 'px';
+      - element.scrollTop
+      + coordinates.top
+      + 'px';
     unlistedItems.style.left = element.offsetLeft
-          - element.scrollLeft
-          + coordinates.left 
-          + 'px';
+      - element.scrollLeft
+      + coordinates.left
+      + 'px';
     unlistedItems.firstChild.focus();
   });
 
@@ -89,8 +97,8 @@ function addEmojiList(query, emojis, target) {
         theEmoji = event.target.innerText;
       } else {
         theEmoji = event.target.querySelector("emoji").innerText;
-      } 
-      
+      }
+
       textarea = event.target.closest("#chrome-extension-unlisted-items").parentElement.querySelector("textarea");
       textarea.value = textarea.value.replace(`:${query}`, theEmoji);
       element.parentElement.remove();
@@ -176,7 +184,7 @@ getCaretCoordinates = function (element, position) {
       style.overflowY = 'scroll';
   } else {
     style.overflow = 'hidden';  // for Chrome to not render a scrollbar; IE keeps overflowY = 'scroll'
-  }  
+  }
 
   mirrorDiv.textContent = element.value.substring(0, position);
   // the second special handling for input type="text" vs textarea: spaces need to be replaced with non-breaking spaces - http://stackoverflow.com/a/13402035/1269037

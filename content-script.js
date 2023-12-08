@@ -14,7 +14,7 @@ textareas.forEach((textarea) => {
     // Check if ":" is found in the string
     if (lastElement !== -1) {
       // Extract the text after ":"
-      const textArray = textAreaValue.substring(lastElement + 1).trim().split(" ");
+      const textArray = textAreaValue.substring(lastElement + 1).split(" ");
       if (textArray.length > 1 || textArray[0] === "") {
         // chrome.runtime.sendMessage(
         //   { type: 'remove-emoji'}, response => {
@@ -97,6 +97,7 @@ function addEmojiList(query, emojis, target) {
     });
   });
 }
+
 
 // The properties that we copy into a mirrored div.
 // Note that some browsers, such as Firefox,

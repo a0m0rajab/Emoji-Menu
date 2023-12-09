@@ -14,5 +14,9 @@ Based on the https://developer.chrome.com/docs/extensions/mv3/getstarted/tut-foc
 - the input event listener is working in the page but not in the content scripts.
 - add white and black list for the extension
 - improve the list and show only one list instead of multiple ones. 
-- check the focus after creating the elemenet 
+- check the focus after creating the elemenet, and keyboard change
 - add the list items after the text area cursor 
+- focus on the input area after choosing the emoji
+- add a white and black list websites for the extension 
+- check if you have multiple emojis with the same text.
+- handle twitter logic 

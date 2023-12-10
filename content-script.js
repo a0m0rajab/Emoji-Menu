@@ -1,5 +1,10 @@
 console.log("content script running");
 window.addEventListener("input", (event) => {
+  if (event.target.tagName !== "TEXTAREA") {
+    event.target.value = event.target.textContent;
+    event.target.selectionEnd = window.getSelection().anchorOffset;
+  };
+  
     console.log("Input event", event)
     let cursorPosition = event.target.selectionEnd;
 
@@ -98,8 +103,14 @@ function addEmojiList(query, emojis, target) {
         theEmoji = event.target.querySelector("emoji").innerText;
       }
 
-      textarea = event.target.closest("#chrome-extension-unlisted-items").parentElement.querySelector("textarea");
-      textarea.value = textarea.value.replace(`:${query}`, theEmoji);
+      textarea = target;
+      
+      if (target.tagName !== "TEXTAREA") {
+        target.textContent = target.textContent.replace(`:${query}`, theEmoji);
+      } else {
+        textarea.value = textarea.value.replace(`:${query}`, theEmoji);
+      }
+
       element.parentElement.remove();
     });
   });

@@ -63,21 +63,25 @@ function addEmojiList(query, emojis, target) {
   textAreas.forEach((textarea) => {
     let coordinates = getCaretCoordinates(target, target.selectionEnd);
     let element = target;
+    let boundingRect = element.getBoundingClientRect();
+    let [elementX, elementY] = [boundingRect.left, boundingRect.top] ;
+    let elementId = 'chrome-extension-unlisted-items'
 
     // textarea.value += 'text area 🤩';
     // add an html element before the textarea
-    const unlistedItems = document.createElement('ul');
-    unlistedItems.id = 'chrome-extension-unlisted-items';
+
+    const unlistedItems = document.querySelector(`#${elementId}`) || document.createElement('ul');
+    unlistedItems.id = elementId;
 
 
-    unlistedItems.innerHTML += emojiText;
+    unlistedItems.innerHTML = emojiText;
 
-    textarea.parentNode.insertBefore(unlistedItems, textarea);
-    unlistedItems.style.top = element.offsetTop
+    document.body.append(unlistedItems);
+    unlistedItems.style.top = elementY + element.offsetTop
       - element.scrollTop
       + coordinates.top
       + 'px';
-    unlistedItems.style.left = element.offsetLeft
+    unlistedItems.style.left = elementX + element.offsetLeft
       - element.scrollLeft
       + coordinates.left
       + 'px';

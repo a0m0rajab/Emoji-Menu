@@ -11,7 +11,7 @@ li#chrome-extension-emojis:hover {
 }
 
 ul#chrome-extension-unlisted-items{
-    position: absolute;
+    position: fixed;
     width: 150px;
     background-color: antiquewhite;
     top: 35px;

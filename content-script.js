@@ -1,15 +1,10 @@
 console.log("content script running");
 window.addEventListener("input", (event) => {
-  if (event.target.tagName !== "TEXTAREA") {
-    event.target.value = event.target.textContent;
-    event.target.selectionEnd = window.getSelection().anchorOffset;
-  };
-  
     console.log("Input event", event)
-    let cursorPosition = event.target.selectionEnd;
+    let cursorPosition = event.target.selectionEnd || window.getSelection().anchorOffset; // handling a case of not being inside a text area
 
     // get the text area value
-    const textAreaValue = event.target.value.substring(0, cursorPosition);
+    const textAreaValue = (event.target.value || event.target.textContent).substring(0, cursorPosition); // handling non text area elements
     // check the last index of new line 
     const lastNewLine = textAreaValue.lastIndexOf("\n");
     const isNewLine = lastNewLine + 1 === cursorPosition;
@@ -106,7 +101,7 @@ function addEmojiList(query, emojis, target) {
       textarea = target;
       
       if (target.tagName !== "TEXTAREA") {
-        target.textContent = target.textContent.replace(`:${query}`, theEmoji);
+        target.innerHTML = target.innerHTML.replace(`:${query}`, theEmoji); // used innerHTML to not break the html structure
       } else {
         textarea.value = textarea.value.replace(`:${query}`, theEmoji);
       }
@@ -196,7 +191,7 @@ getCaretCoordinates = function (element, position) {
     style.overflow = 'hidden';  // for Chrome to not render a scrollbar; IE keeps overflowY = 'scroll'
   }
 
-  mirrorDiv.textContent = element.value.substring(0, position);
+  mirrorDiv.textContent = (element.value || element.textContent).substring(0, position); // we used text content or value to handle tags that are not textareas.
   // the second special handling for input type="text" vs textarea: spaces need to be replaced with non-breaking spaces - http://stackoverflow.com/a/13402035/1269037
   if (element.nodeName === 'INPUT')
     mirrorDiv.textContent = mirrorDiv.textContent.replace(/\s/g, "\u00a0");
@@ -207,7 +202,7 @@ getCaretCoordinates = function (element, position) {
   // The  *only* reliable way to do that is to copy the *entire* rest of the
   // textarea's content into the <span> created at the caret position.
   // for inputs, just '.' would be enough, but why bother?
-  span.textContent = element.value.substring(position) || '.';  // || because a completely empty faux span doesn't render at all
+  span.textContent = (element.value || element.textContent).substring(position) || '.';  // || because a completely empty faux span doesn't render at all
   span.style.backgroundColor = "lightgrey";
   mirrorDiv.appendChild(span);
 

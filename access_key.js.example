@@ -1,0 +1,2 @@
+let access_key = "YOUR_KEY_HERE";
+export { access_key };

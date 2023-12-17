@@ -1,5 +1,17 @@
-# emoji-chrome-extension
-emoji-chrome-extension
+# About
+
+Emoji menu is a chrome extension that adds emojis to your favourite website.
+To use it simple just type a colon (:) followed with your word, then a menu will appear with the emojis to select from it. 
+
+# Install 
+
+TBD
+
+## Development
+
+- Get the access key from: https://emoji-api.com/
+- Add the access key to access_key.js file
+- Load the package to your browser
 
 Based on the https://developer.chrome.com/docs/extensions/mv3/getstarted/tut-focus-mode/ tutorial.
 

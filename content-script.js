@@ -101,7 +101,19 @@ function addEmojiList(query, emojis, target) {
       textarea = target;
       
       if (target.tagName !== "TEXTAREA") {
-        target.innerHTML = target.innerHTML.replace(`:${query}`, theEmoji); // used innerHTML to not break the html structure
+        textarea.focus();
+        const selection = window.getSelection();
+        const range = document.createRange();
+        range.selectNodeContents(textarea);
+        selection.removeAllRanges();
+        selection.addRange(range);
+        let newText =  textarea.innerText.replace(`:${query}`, theEmoji);
+        document.execCommand("delete", true);
+        newText.split(" ").forEach((text, index) => {
+         document.execCommand("insertText", false, text + " ");
+        });
+        document.execCommand("undo", false);
+        document.execCommand("delete", false);
       } else {
         textarea.value = textarea.value.replace(`:${query}`, theEmoji);
       }

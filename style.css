@@ -19,4 +19,6 @@ ul#chrome-extension-unlisted-items{
     margin: 5px;
     padding: 4px;
     min-width: max-content;
+    border-radius: 10px 10px 15px 15px;
+    color: black;
 }
